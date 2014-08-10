@@ -19,7 +19,7 @@ import todo.domain.model.Todo;
  * @author user
  */
 @Stateless
-public class TodoService1 {
+public class TodoService {
 
     private static final long MAX_UNFINISHED_COUNT = 5;
     @PersistenceContext
@@ -31,23 +31,28 @@ public class TodoService1 {
     }
 
     public Todo findOne(Integer todoId) {
+        //(1)
         Todo todo = entityManager.find(Todo.class, todoId);
         if (todo == null) {
+            //(2)
             throw new ResourceNotFoundException("aaaaaaaaaaaa" + todoId);
         }
         return todo;
     }
 
     public Todo create(Todo todo) {
+        //(3)
         TypedQuery<Long> q = entityManager.createQuery("SELECT COUNT(x) FROM Todo x WHERE x.finished = :finished", Long.class).setParameter("finished", false);
         long unfinishedCount = q.getSingleResult();
         if (unfinishedCount > MAX_UNFINISHED_COUNT) {
+            //(4)
             throw new BusinessException("bbbbbbbbbbbbbb" + unfinishedCount);
         }
         todo.setFinished(false);
         todo.setCreatedAt(new Date());
+        //(5)
         entityManager.persist(todo);
-        return null;
+        return todo;
     }
 
     public Todo finish(Integer todoId) {
@@ -56,12 +61,14 @@ public class TodoService1 {
             throw new BusinessException("cccccccccccccc" + todoId);
         }
         todo.setFinished(true);
+        //(6)
         entityManager.merge(todo);
-        return null;
+        return todo;
     }
 
     public void delete(Integer todoId) {
         Todo todo = findOne(todoId);
-        entityManager.remove(todo);        
+        //(7)
+        entityManager.remove(todo);
     }
 }

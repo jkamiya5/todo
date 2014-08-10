@@ -57,4 +57,70 @@ public class TodoServiceTest {
         System.out.println(result);
         assertNotNull(result);
     }
+
+    /**
+     * Test of findOne method, of class TodoService.
+     */
+    @Test
+    public void testFindOne() throws Exception {
+        System.out.println("findOne");
+        Integer todoId = null;
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+        TodoService instance = (TodoService) container.getContext().lookup("java:global/classes/TodoService");
+        Todo expResult = null;
+        Todo result = instance.findOne(todoId);
+        assertEquals(expResult, result);
+        container.close();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of create method, of class TodoService.
+     */
+    @Test
+    public void testCreate() throws Exception {
+        System.out.println("create");
+        Todo todo = null;
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+        TodoService instance = (TodoService) container.getContext().lookup("java:global/classes/TodoService");
+        Todo expResult = null;
+        Todo result = instance.create(todo);
+        assertEquals(expResult, result);
+        container.close();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of finish method, of class TodoService.
+     */
+    @Test
+    public void testFinish() throws Exception {
+        System.out.println("finish");
+        Integer todoId = null;
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+        TodoService instance = (TodoService) container.getContext().lookup("java:global/classes/TodoService");
+        Todo expResult = null;
+        Todo result = instance.finish(todoId);
+        assertEquals(expResult, result);
+        container.close();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of delete method, of class TodoService.
+     */
+    @Test
+    public void testDelete() throws Exception {
+        System.out.println("delete");
+        Integer todoId = null;
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+        TodoService instance = (TodoService) container.getContext().lookup("java:global/classes/TodoService");
+        instance.delete(todoId);
+        container.close();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }
